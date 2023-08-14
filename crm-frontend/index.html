@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- META -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- STYLES -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@5/dist/backdrop.css" />
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/media.css">
+    <!-- SCRIPTS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script defer src="https://unpkg.com/popper.js@1"></script>
+    <script defer src="https://unpkg.com/tippy.js@5"></script>
+    <script defer src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+    <script defer src="./js/main.js"></script>
+    <!-- TITLE -->
+    <title>Записная книжка</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__container">
+        <picture class="header__pic">
+          <source srcset="./Images/logotip-320.svg" media="(max-width: 320px)">
+          <img class="header__img" src="./Images/logotip-1024.svg" alt="Логотин компании">
+        </picture>
+        <input class="header__search-input" id="searchInput" type="text" placeholder="Введите запрос">
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <h2 class="main__header" id="main__header" href="#header">Клиенты</h2>
+        
+        <div class="main__table-container">
+          <table class="main__table" id="clientsTable">
+            <thead class="main__table-thead" id="clientsTable-thead">
+              <tr class="main__table-headTR">
+                  <th class="main__table-th main__table-th-id" id="clientsTableID">
+                    <div class="main__table-th-container">
+                      <span class="table-th__content">ID</span>
+                      <span class="sort-icon sort-up" id="sortIconID"></span>
+                    </div>
+                  </th>
+                  <th class="main__table-th" id="clientsTableFIO">
+                    <div class="main__table-th-container">
+                      <span class="table-th__content">Фамилия Имя Отчество
+                        <span class="sort-icon sort-up" id="sortIconFIO"></span>
+                        <span class="sort-text-FIO" id="sort-indicator-FIO">А-Я</span>
+                      </span>
+                    </div>
+                  </th>
+                  <th class="main__table-th" id="clientsTableCreatedAt">
+                    <div class="main__table-th-container">
+                      <span class="table-th__content">Дата и время создания
+                        <span class="sort-icon sort-up" id="sortIconCreatedAt"></span>
+                      </span>
+                    </div>
+                  </th>
+                  <th class="main__table-th" id="clientsTableUpdatedAt">
+                    <div class="main__table-th-container">
+                      <span class="table-th__content">Последние изменения
+                        <span class="sort-icon sort-up" id="sortIconUpdatedAt"></span>
+                      </span>
+                    </div>
+                  </th>
+                  <th class="main__table-th" id="clientsTableContacts">Контакты</th>
+                  <th class="main__table-th" id="clientsTableActions">Действия</th>
+              </tr>
+            </thead>
+            <tbody class="main__table-tbody" id="clientsTable-tbody"></tbody>
+          </table>
+          <div class="main__preloadPage" id="preloader">
+            <svg class="main__preloadSVG" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20C2 29.941 10.059 38 20 38C29.941 38 38 29.941 38 20C38 10.059 29.941 2 20 2C17.6755 2 15.454 2.4405 13.414 3.243" stroke="#9873FF" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="main__add-client-container">
+          <button class="main__add-client-btn" id="addNewClientBtn">Добавить клиента</button>
+        </div>
+          
+        <form class="main__modal-form" id="addClientModalForm" action="https://jsonplaceholder.typicode.com/posts" method="POST" aria-label="Форма заполнения данных о клиенте">
+          <div class="main__modal-form-container" id="clientForm__formContainer">
+            <div class="main__modal-head-container" id="clientForm__headContainer">
+              <h3 class="main__modal-header" id="clientForm__header"></h3>
+              <span class="main__modal-clients-id" id="clientForm__clientsId"></span>
+              <button class="btn hashcopy-btn" id="hashCopyBtn"></button>
+            </div>
+            
+            <div class="main__modal-form-input-container">
+              <label class="main__modal-form-label" for="clientForm__lastname">Фамилия*</label>
+              <input type="text" class="main__modal-input" id="clientForm__lastname" name="clientForm__lastname" required autocomplete="off">
+            </div>
+            
+            <div class="main__modal-form-input-container">
+              <label class="main__modal-form-label" for="clientForm__name">Имя*</label>
+              <input type="text" class="main__modal-input" id="clientForm__name" name="clientForm__name" required autocomplete="off">
+            </div>
+            
+            <div class="main__modal-form-input-container">
+              <label class="main__modal-form-label" for="clientForm__surname">Отчество*</label>
+              <input type="text" class="main__modal-input" id="clientForm__surname" name="clientForm__surname" required autocomplete="off">
+            </div>
+          </div>
+          
+          <div class="main__modal-clients-contact-container">
+            <div id="clientForm__addContactContainer">
+            </div>
+            <button class="clientForm__addContact btn" id="clientForm__addContact">Добавить контакт</button>
+          </div>
+
+          <button class="main__modal-closeBtn btn" id="clientForm__closeBtn" aria-label="Кнопка закрытия меню">
+            <span class="main__modal-closeBtn-line"></span>
+            <span class="main__modal-closeBtn-line"></span>
+          </button>
+          
+          <button class="clientForm__saveClient btn" id="clientForm__saveClient" type="submit">Сохранить</button>
+          
+          <button class="clientForm__cancelBtn btn" id="clientForm__cancel">Отмена</button>
+
+          <button class="clientForm__cancelBtn btn visible-state-off" id="clientForm__delete">Удалить клиента</button>
+        </form>
+
+        <form class="main__modal-form main__modal-form-delete" id="deleteClientModalForm">
+          <div class="main__modal-form-container-delete">
+            <h3 class="main__modal-header main__modal-header-delete">Удалить клиента</h3>
+            <button class="main__modal-closeBtn btn" id="clientForm__closeBtnDelete" aria-label="Кнопка закрытия меню">
+              <span class="main__modal-closeBtn-line"></span>
+              <span class="main__modal-closeBtn-line"></span>
+            </button>
+            <span class="clientForm__deleteText">Вы действительно хотите удалить данного клиента?</span>
+            <button class="clientForm__deleteClient btn" id="clientForm__deleteClient" type="">Удалить</button>
+            <button class="clientForm__cancelBtn clientForm__cancelBtnDelete btn" id="clientForm__cancelDelete" type="">Отмена</button>
+          </div>
+        </form>
+
+        <div class="overlay" id="overlay"></div>
+      </div>
+    </main>
+  </body>
+</html>
